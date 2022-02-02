@@ -1,16 +1,16 @@
-# bloc_itineraries
+# Around the World
 
-A new Flutter project.
+Personal application for touristic club "Around the world".
 
-## Getting Started
+## All Tasks
 
-This project is a starting point for a Flutter application.
+done - creating list of itineraries, getting from [WordPress Site](https://po-belu-svetu.zp.ua) 
+done - bind with social networks and possibility to call administrator
+done - custom SliverAppBar with dates and price, what are hiding with scrolling
+planned - booking form with sending mail to administator mail.
+planned - create notification, when has been created new itinerary
+planned - show blogs
+planned - show "concacts" and page "about us"
+planned - collect all itineraies in Ukraine and combine it in App. Share with customers, and give them the opportunity to add their itineraries
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
