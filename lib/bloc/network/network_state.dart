@@ -1,16 +1,18 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:equatable/equatable.dart';
 
 abstract class NetworkState {
 
 }
-
-class NetworkLoading extends NetworkState {
-
+ class NetworkStateLoading extends NetworkState {
 }
 
-class NetworkConnected extends NetworkState {
+class NetworkStateConnected extends NetworkState {
   final ConnectivityResult connectionType;
-  NetworkConnected({required this.connectionType});
+  NetworkStateConnected({required this.connectionType});
 }
 
-class NetworkDisconnected extends NetworkState {}
+class NetworkStateDisconnected extends NetworkState {
+
+
+}

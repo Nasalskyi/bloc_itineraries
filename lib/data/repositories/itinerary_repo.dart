@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:bloc_itineraries/data/models/itinerary.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,7 +23,6 @@ class ItineraryRepo {
           for (var valueItData in itineraryData){
             String date = valueItData.date;
             List<String> arrayItDate = date.split('-');
-            log('$arrayItDate');
             date = '';
             for(int i=arrayItDate.length-1;i>=0;i--){
               if (i != 0 ) {

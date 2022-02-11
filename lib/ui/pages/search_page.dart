@@ -1,18 +1,18 @@
-import 'dart:async';
+
 import 'dart:developer';
 import 'package:bloc_itineraries/bloc/itinerary_bloc.dart';
 import 'package:bloc_itineraries/bloc/network/network_bloc.dart';
+import 'package:bloc_itineraries/bloc/network/network_event.dart';
 import 'package:bloc_itineraries/bloc/network/network_state.dart';
 import 'package:bloc_itineraries/ui/pages/itinerary_page.dart';
 import 'package:bloc_itineraries/ui/widgets/custom_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc_itineraries/data/models/itinerary.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 //import 'package:connectivity_plus/connectivity_plus.dart';
-//now disabled because of unworking backend with searching  Title
+//now disabled because of idle backend with searching  Title
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -34,16 +34,17 @@ class _SearchPageState extends State<SearchPage> {
     super.initState();
     log('my storage: ${_storage.runtimeType.toString()}');
     log('Itineraries:$_currentItineraries');
-
+    context.read<NetworkBloc>()
+        .add(NetworkEventTryConnect());
   }
   @override
   Widget build(BuildContext context) {
 
     final state = context.watch<ItineraryBloc>().state;
     final networkState = context.watch<NetworkBloc>().state;
-    log('my connection: ${networkState.toString()}');
+    log('my connection: $networkState');
   //  log('my connection: ${_connectionStatus.toString()}');
-    if (networkState is NetworkConnected) {
+    if (networkState is NetworkStateConnected) {
       if(_currentItineraries.isEmpty) {
         log('lets update itineraries');
         context.read<ItineraryBloc>()
@@ -55,7 +56,7 @@ class _SearchPageState extends State<SearchPage> {
     }
     return Column(
       children:[
-        //I had problem with custom API, that why i disablet search field
+        //I had problem with custom API, that why i disable search field
         /*TextField(
           onChanged: (value) {
             context.read<ItineraryBloc>().add(ItineraryEvent.fetch()); // title: value
