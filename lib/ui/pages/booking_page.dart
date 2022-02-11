@@ -103,7 +103,7 @@ class _BookingState extends State<BookingForm> {
               NameInput(focusNode: _nameFocusNode),
               EmailInput(focusNode: _emailFocusNode),
               PhoneInput(focusNode: _phoneFocusNode),
-              SizeInput(),
+              const SizeInput(),
               CommentInput(focusNode: _commentFocusNode),
               SubmitButton(itinerary: widget.itinerary),
             ],
@@ -133,7 +133,7 @@ class NameInput extends StatelessWidget {
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.green,
                   width: 2.0,
                 ),
@@ -177,7 +177,7 @@ class EmailInput extends StatelessWidget {
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.green,
                   width: 2.0,
                 ),
@@ -218,7 +218,7 @@ class PhoneInput extends StatelessWidget {
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.green,
                   width: 2.0,
                 ),

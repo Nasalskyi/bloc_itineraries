@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "539215882194",
+    "project_id": "around-the-world-d787a",
+    "storage_bucket": "around-the-world-d787a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539215882194:android:4829f912556f1064274a0b",
+        "android_client_info": {
+          "package_name": "com.aroundtheworld.bloc_itineraries"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539215882194-gcaaegfuku2abgsnbsn5p1fuoe830c5m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu9-YMlnEzFFuaDQhcbJAq4ZLYfEInGew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539215882194-gcaaegfuku2abgsnbsn5p1fuoe830c5m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "539215882194-sq741thrfvsidpqbjh8bljkib2cs2834.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aroundtheworld"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
