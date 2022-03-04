@@ -2,9 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc_itineraries/bloc_observable.dart';
 import 'package:bloc_itineraries/ui/pages/home_page.dart';
-import 'package:bloc_itineraries/ui/pages/itinerary_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_notification_channel/flutter_notification_channel.dart';
 import 'package:flutter_notification_channel/notification_importance.dart';
 import 'package:flutter_notification_channel/notification_visibility.dart';
@@ -14,40 +12,16 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
-
-  log("Handling a background message: ${message.messageId}");
-}
-
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
-  /// waiting for background messages
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  /// Registration our channel to get notification
-  await FlutterNotificationChannel.registerNotificationChannel(
-    description: 'Your channel description',
-    id: 'NewItinerary',
-    importance: NotificationImportance.IMPORTANCE_HIGH,
-    name: 'New Itinerary',
-    visibility: NotificationVisibility.VISIBILITY_PUBLIC,
-    allowBubbles: true,
-    enableVibration: true,
-    enableSound: true,
-    showBadge: true,
-  );
-  /// subscribing to the topic
-  await FirebaseMessaging.instance.subscribeToTopic('NewItinerary');
+  initFirebase();
 
   /// getting state from storage
   final storage = await HydratedStorage.build(
       storageDirectory: await getTemporaryDirectory()
   );
+
+
   HydratedBlocOverrides.runZoned(
           () => runApp(const MyApp()),
     blocObserver: ItineraryBlocObservable(),
@@ -69,6 +43,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+
+    // Also handle any interaction when the app is in the background via a
+    // Stream listener
+
     return MaterialApp(
         title: "По Белу Свету",
         theme: ThemeData(
@@ -97,4 +76,57 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+}
+
+
+void initFirebase() async {
+
+  Firebase.initializeApp();
+  /// waiting for background messages
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  /// Registration our channel to get notification
+  await FlutterNotificationChannel.registerNotificationChannel(
+    description: 'Main channel to get all notification from site',
+    id: 'NewItinerary',
+    importance: NotificationImportance.IMPORTANCE_HIGH,
+    name: 'New Itinerary',
+    visibility: NotificationVisibility.VISIBILITY_PUBLIC,
+    allowBubbles: true,
+    enableVibration: true,
+    enableSound: true,
+    showBadge: true,
+  );
+  /// subscribing to the topic
+  await FirebaseMessaging.instance.subscribeToTopic('NewItinerary');
+
+  /// to catch message
+  setupInteractedMessage();
+}
+
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
+
+  log("Handling a background message: ${message.messageId}");
+}
+void _handleMessage(RemoteMessage message) {
+  log('message: ${message.data}');
+}
+
+Future<void> setupInteractedMessage() async {
+  /// Get any messages which caused the application to open from
+  /// a terminated state.
+  RemoteMessage? initialMessage =
+  await FirebaseMessaging.instance.getInitialMessage();
+
+  if (initialMessage != null) {
+    _handleMessage(initialMessage);
+  }
+
+  /// Also handle any interaction when the app is in the background via a
+  /// Stream listener
+  FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
 }
