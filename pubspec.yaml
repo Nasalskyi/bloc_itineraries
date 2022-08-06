@@ -47,6 +47,7 @@ dependencies:
   firebase_core: ^1.12.0
   firebase_analytics: ^9.1.0
   firebase_messaging: ^11.2.6
+  flutter_notification_channel: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +75,7 @@ flutter_icons:
 flutter:
   assets:
     - assets/
+    - android/app/src/main/res/drawable/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
